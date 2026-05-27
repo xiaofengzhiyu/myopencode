@@ -76,17 +76,14 @@ jobs:
         run: |
           UPLOAD_DIR="$RUNNER_TEMP/upload"
           mkdir -p "$UPLOAD_DIR"
-
           for dir in opencode-*/; do
             name="${dir%/}"
-
             # 按用户勾选的平台过滤
             case "$name" in
               *windows*)  [ "${{ inputs.cli_windows }}" != "true" ] && continue ;;
               *darwin*)   [ "${{ inputs.cli_macos }}"   != "true" ] && continue ;;
               *linux*)    [ "${{ inputs.cli_linux }}"    != "true" ] && continue ;;
             esac
-
             echo "Packaging: $name"
             if [[ "$name" == *linux* ]]; then
               tar -czf "$UPLOAD_DIR/${name}.tar.gz" -C "$name" bin
@@ -96,10 +93,8 @@ jobs:
               cd "$GITHUB_WORKSPACE/packages/opencode/dist"
             fi
           done
-
           echo "Files to upload:"
           ls -lh "$UPLOAD_DIR/"
-
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: opencode-cli
@@ -139,7 +134,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - name: Build & package
+      - name: Build (electron-vite)
+        run: bun run build
+        working-directory: packages/desktop
+        env:
+          OPENCODE_CHANNEL: prod
+
+      - name: Package
         run: npx electron-builder --win --config electron-builder.config.ts --publish never
         working-directory: packages/desktop
         timeout-minutes: 30
@@ -185,7 +186,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - name: Build & package
+      - name: Build (electron-vite)
+        run: bun run build
+        working-directory: packages/desktop
+        env:
+          OPENCODE_CHANNEL: prod
+
+      - name: Package
         run: npx electron-builder --mac --x64 --config electron-builder.config.ts --publish never
         working-directory: packages/desktop
         timeout-minutes: 30
@@ -231,7 +238,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - name: Build & package
+      - name: Build (electron-vite)
+        run: bun run build
+        working-directory: packages/desktop
+        env:
+          OPENCODE_CHANNEL: prod
+
+      - name: Package
         run: npx electron-builder --mac --arm64 --config electron-builder.config.ts --publish never
         working-directory: packages/desktop
         timeout-minutes: 30
@@ -280,7 +293,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
-      - name: Build & package
+      - name: Build (electron-vite)
+        run: bun run build
+        working-directory: packages/desktop
+        env:
+          OPENCODE_CHANNEL: prod
+
+      - name: Package
         run: npx electron-builder --linux --config electron-builder.config.ts --publish never
         working-directory: packages/desktop
         timeout-minutes: 30
