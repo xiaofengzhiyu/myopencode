@@ -424,6 +424,7 @@ export const layer = Layer.effect(
         "-c",
         "core.quotepath=false",
         "diff",
+        "--ignore-cr-at-eol",
         "--numstat",
         "HEAD",
       ])
@@ -473,6 +474,7 @@ export const layer = Layer.effect(
         "-c",
         "core.quotepath=false",
         "diff",
+        "--ignore-cr-at-eol",
         "--name-only",
         "--diff-filter=D",
         "HEAD",
