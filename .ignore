@@ -1,0 +1,21 @@
+# 禁止读取.opencode文件夹
+.opencode
+.opencode.disable
+
+# 禁止 AI 读取插件目录下的所有内容
+# .opencode/plugins/**
+
+# 如果只想禁止特定的插件，可以更精确地指定
+# .opencode/plugins/broken-plugin-name/**
+
+# 禁止读取缓存目录，防止 AI 误操作或尝试修复损坏的缓存
+.opencode/.cache/**
+
+# 禁止 AI 读取环境配置文件（防止敏感信息泄露）
+.env*
+*.crt
+*.key
+*.pem
+
+# 允许访问特定的配置文件（例外规则）
+# !opencode.json
