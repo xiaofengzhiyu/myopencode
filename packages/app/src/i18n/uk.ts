@@ -552,6 +552,7 @@ export const dict = {
   "session.files.all": "Усі файли",
   "session.files.empty": "Немає файлів",
   "session.files.binaryContent": "Бінарний файл (вміст не може бути відображено)",
+  "session.files.refresh": "Оновити файл",
 
   "session.messages.renderEarlier": "Відобразити раніші повідомлення",
   "session.messages.loadingEarlier": "Завантаження раніших повідомлень...",

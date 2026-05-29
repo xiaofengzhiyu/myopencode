@@ -3,7 +3,7 @@ import { createStore } from "solid-js/store"
 import { createMediaQuery } from "@solid-primitives/media"
 import { Tabs } from "@opencode-ai/ui/tabs"
 import { IconButton } from "@opencode-ai/ui/icon-button"
-import { TooltipKeybind } from "@opencode-ai/ui/tooltip"
+import { Tooltip, TooltipKeybind } from "@opencode-ai/ui/tooltip"
 import { ResizeHandle } from "@opencode-ai/ui/resize-handle"
 import { Mark } from "@opencode-ai/ui/logo"
 import { DragDropProvider, DragDropSensors, DragOverlay, SortableProvider, closestCenter } from "@thisbeyond/solid-dnd"
@@ -418,6 +418,17 @@ export function SessionSidePanel(props: {
                       </Switch>
                     </Tabs.Content>
                     <Tabs.Content value="all" class="bg-background-stronger px-3 py-0">
+                      <div class="flex items-center justify-end py-1">
+                        <Tooltip value={language.t("session.files.refresh")}>
+                          <IconButton
+                            icon="reset"
+                            variant="ghost"
+                            size="small"
+                            onClick={() => file.tree.refresh("")}
+                            aria-label={language.t("session.files.refresh")}
+                          />
+                        </Tooltip>
+                      </div>
                       <Switch>
                         <Match when={nofiles()}>{empty(language.t("session.files.empty"))}</Match>
                         <Match when={true}>
